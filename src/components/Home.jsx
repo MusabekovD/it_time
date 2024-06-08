@@ -11,7 +11,7 @@ import { TextField } from "@mui/material";
 import { toast } from "react-toastify";
 
 const Home = () => {
-  const url = "https://autoapi.dezinfeksiyatashkent.uz/api/brands/";
+  const url = "https://autoapi.dezinfeksiyatashkent.uz/api/categories/";
   const urlImg = "https://autoapi.dezinfeksiyatashkent.uz/api/uploads/images/";
   const token = localStorage.getItem("accessToken");
   const [category, setCategory] = useState([]);
@@ -40,7 +40,7 @@ const Home = () => {
     formData.append("name_ru", data.name_ru);
     formData.append("images", data.images);
 
-    fetch("https://autoapi.dezinfeksiyatashkent.uz/api/categories", {
+    fetch("https://autoapi.dezinfeksiyatashkent.uz/api/categories/", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
