@@ -21,10 +21,7 @@ const Home = () => {
     images: null,
   });
 
- 
-
   const getCategory = (e) => {
-
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -59,6 +56,7 @@ const Home = () => {
   };
   useEffect(() => {
     getCategory();
+    console.log(category)
   }, []);
 
   return (
@@ -69,34 +67,34 @@ const Home = () => {
         </h2>
       </div>
       <div className="container mx-auto my-20 pl-[120px] flex gap-3">
-        {/*  <TextField
-            id="outlined-basic"
-            label="Name_En"
-            variant="outlined"
-            onChange={(e) => setData({ ...data, name_en: e.target.value })}
-          />
-          <TextField
-            id="outlined-basic"
-            label="Name_Ru"
-            variant="outlined"
-            onChange={(e) => setData({ ...data, name_ru: e.target.value })}
-          />
-          <TextField
-            id="outlined-basic"
-            label=""
-            variant="outlined"
-            type="file"
-            onChange={(e) => setData({ ...data, images: e.target.files[0] })}
-          />
-          <Button
-            type="submit"
-            variant="outlined"
-            color="primary"
-            className="w-[200px]"
-          >
-            Submit
-          </Button> */}
-        <form action="" onSubmit={create}>
+        <TextField
+          id="outlined-basic"
+          label="Name_En"
+          variant="outlined"
+          onChange={(e) => setData({ ...data, name_en: e.target.value })}
+        />
+        <TextField
+          id="outlined-basic"
+          label="Name_Ru"
+          variant="outlined"
+          onChange={(e) => setData({ ...data, name_ru: e.target.value })}
+        />
+        <TextField
+          id="outlined-basic"
+          label=""
+          variant="outlined"
+          type="file"
+          onChange={(e) => setData({ ...data, images: e.target.files[0] })}
+        />
+        <Button
+          onSubmit={create}
+          variant="outlined"
+          color="primary"
+          className="w-[200px]"
+        >
+          Submit
+        </Button>
+        {/* <form action="" onSubmit={create}>
           <input
             type="text"
             placeholder="text"
@@ -113,7 +111,7 @@ const Home = () => {
             onChange={(e) => setData({ ...data, images: e.target.files[0] })}
           />
           <button type="submit">Submit</button>
-        </form>
+        </form> */}
       </div>
       <div className="container mx-auto flex flex-wrap justify-center gap-6 ">
         {category.map((item, index) => (
