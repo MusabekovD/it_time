@@ -20,35 +20,36 @@ const Home = () => {
     name_ru: "",
     images: null,
   });
-  useEffect(() => {
-    getCategory();
-  }, []);
 
-  const formData = new FormData();
-  formData.append("name_en", data.name_en);
-  formData.append("name_ru", data.name_ru);
-  formData.append("images", data.images);
+ 
 
   const getCategory = (e) => {
+
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        setCategory(data.data);
+        setCategory(data?.data);
       })
       .catch((err) => console.log(err.error));
   };
 
   const create = (e) => {
     e.preventDefault();
-    fetch("https://autoapi.dezinfeksiyatashkent.uz/api/categories/", {
-      method: "POST",
+    const formData = new FormData();
+    formData.append("name_en", data.name_en);
+    formData.append("name_ru", data.name_ru);
+    formData.append("images", data.images);
+
+    fetch("https://autoapi.dezinfeksiyatashkent.uz/api/categories", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      method: "POST",
       body: formData,
     })
       .then((res) => res.json())
       .then((data) => {
+        getCategory();
         toast.success("Muvafaqqiyatli qo'shildi!");
       })
       .catch((err) => {
@@ -56,6 +57,9 @@ const Home = () => {
         toast.error("yaratilmadi");
       });
   };
+  useEffect(() => {
+    getCategory();
+  }, []);
 
   return (
     <div>
@@ -65,33 +69,51 @@ const Home = () => {
         </h2>
       </div>
       <div className="container mx-auto my-20 pl-[120px] flex gap-3">
-        <TextField
-          id="outlined-basic"
-          label="Name_En"
-          variant="outlined"
-          onChange={(e) => setData({ ...data, name_en: e.target.value })}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Name_Ru"
-          variant="outlined"
-          onChange={(e) => setData({ ...data, name_ru: e.target.value })}
-        />
-        <TextField
-          id="outlined-basic"
-          label=""
-          variant="outlined"
-          type="file"
-          onChange={(e) => setData({ ...data, images: e.target.files[0] })}
-        />
-        <Button
-          onClick={create}
-          variant="outlined"
-          color="primary"
-          className="w-[200px]"
-        >
-          Submit
-        </Button>
+        {/*  <TextField
+            id="outlined-basic"
+            label="Name_En"
+            variant="outlined"
+            onChange={(e) => setData({ ...data, name_en: e.target.value })}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Name_Ru"
+            variant="outlined"
+            onChange={(e) => setData({ ...data, name_ru: e.target.value })}
+          />
+          <TextField
+            id="outlined-basic"
+            label=""
+            variant="outlined"
+            type="file"
+            onChange={(e) => setData({ ...data, images: e.target.files[0] })}
+          />
+          <Button
+            type="submit"
+            variant="outlined"
+            color="primary"
+            className="w-[200px]"
+          >
+            Submit
+          </Button> */}
+        <form action="" onSubmit={create}>
+          <input
+            type="text"
+            placeholder="text"
+            onChange={(e) => setData({ ...data, name_en: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder="text"
+            onChange={(e) => setData({ ...data, name_ru: e.target.value })}
+          />
+
+          <input
+            type="file"
+            onChange={(e) => setData({ ...data, images: e.target.files[0] })}
+          />
+          <button type="submit">Submit</button>
+        </form>
       </div>
       <div className="container mx-auto flex flex-wrap justify-center gap-6 ">
         {category.map((item, index) => (
